@@ -1,0 +1,46 @@
+name: Portfolio quality
+on:
+  pull_request:
+  push:
+    branches: [main, 'codex/**', 'feat/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    name: Build and browser checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CONTACT_ENABLED: 'false'
+      CONTACT_SENDER_VERIFIED: 'false'
+      GITHUB_METADATA_ENABLED: 'false'
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run seo:validate
+      - run: npm run artifacts:validate
+      - run: npm run perf:bundles
+      - run: npm audit --audit-level=low
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:e2e
+      - run: npm run test:audit
+      - name: Retain browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-evidence
+          path: test-results/
+          retention-days: 7
+          if-no-files-found: ignore

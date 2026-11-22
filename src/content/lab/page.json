@@ -1,0 +1,14 @@
+{
+  "heading": "Room for the next idea.",
+  "introduction": "A space for explorations, prototypes and notes from the process of learning and building.",
+  "emptyHeading": "No experiments to share just yet.",
+  "emptyBody": "This space will grow with real explorations and things learned along the way. In the meantime, you can explore my software projects.",
+  "unmatchedHeading": "No experiments match these filters.",
+  "unmatchedBody": "Try another category, progress status or search term, or reset the filters.",
+  "legendHeading": "How progress is described.",
+  "statusDescriptions": {
+    "Exploring": "An idea being investigated before its direction is settled.",
+    "Building": "An exploration or prototype in development.",
+    "Experiment Complete": "A finished exploration with progress notes to share."
+  }
+}

@@ -1,0 +1,11 @@
+# Phase 10 — SEO, privacy and analytics
+
+Use a single publication configuration with an explicitly approved production origin, an indexing release switch and Vercel Web Analytics preference. Origin is pending user confirmation, not inferred from the target host, request Host or Vercel preview URL. Complete implementation with origin absent if needed. Keep local/preview non-indexable; production indexing still requires the separate release switch. Confirmation of a URL does not verify deployment or approve publication.
+
+Centralize route metadata for all 23 actual pages plus future verified Lab entries. Preserve existing unique titles/descriptions, add matching Open Graph/Twitter metadata, conditional absolute canonicals and shared original 1200×630 PNG artwork. No localhost canonicals or guessed origin when unconfigured. Generate sitemap only from actual content and only when publication is indexable; no fabricated lastmod dates, empty Lab details, APIs or 404 URLs. Robots and HTTP noindex headers agree with release state.
+
+Use safe JSON-LD serialization for a minimal verified Person/WebSite graph and actual page records. No invented credentials, ratings, dates, organization ownership or product outcomes. Unknown pages inherit no homepage canonical. Original typographic SVG icon and black/silver/violet OG composition reuse the repository's abstract sculpture; no portrait/product screenshot substitute.
+
+Integrate the official Vercel Analytics SDK only for configured production deployments. Disable it locally/preview, on unknown paths, privacy signals or disabled preference. Permit only pageviews of known routes; strip query/hash and avoid custom events/form values. GA4 remains unimplemented/disabled until a later deliberate consent-aware configuration. Privacy copy reflects the same actual runtime gates. No unnecessary cookie banner.
+
+Test default/preview/released configuration, canonical/social consistency, JSON-LD safety, truthful sitemap/robots, production analytics URL filtering, no local tracking and real PNG dimensions. Run lint/typecheck/unit/build, all browser tests, SEO artifact validation, audit/bundles and actual image review. Document missing origin/deployed platform checks and retain noindex until release authorization.

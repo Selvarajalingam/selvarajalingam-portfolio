@@ -1,0 +1,64 @@
+{
+  "profile": {
+    "name": "Selvarajalingam",
+    "wordmark": "selva.",
+    "tagline": "teach. build. create. innovate.",
+    "identity": "Technology Educator · Software Developer · Product Builder",
+    "hero": "I teach technology, build software, and turn ideas into digital products.",
+    "email": "selvarajalingam.dev@gmail.com",
+    "description": "Meet Selvarajalingam, a Technology Educator, Software Developer and Product Builder. Explore full-stack applications, real-world software projects, AI experiments, technical education and digital products."
+  },
+  "services": [
+    { "slug": "development", "title": "Development", "verification": "verified", "items": ["Website development", "Full-stack applications", "Java / Spring Boot backend development", "AI integrations"] },
+    { "slug": "product-design", "title": "Product & Design", "verification": "verified", "items": ["MVP and startup prototypes (Vibe Coding)", "UI/UX design", "Figma prototyping"] },
+    { "slug": "education", "title": "Education", "verification": "verified", "items": ["Technical training", "Corporate workshops", "Mentoring", "Project guidance"] }
+  ],
+  "skills": [
+    { "slug": "programming", "title": "Programming Languages", "verification": "verified", "items": [
+      { "name": "Python", "status": "Applied", "context": "Self-directed learning; WaterBuddy and Career Crafter" },
+      { "name": "Java", "status": "Strengthening", "context": "Self-directed learning; Java full-stack practice" },
+      { "name": "C", "status": "Applied", "context": "Self-directed study and practice" },
+      { "name": "JavaScript", "status": "Applied", "context": "Web fundamentals and application development" },
+      { "name": "TypeScript", "status": "Applied", "context": "Research Hub and Hearth" }
+    ] },
+    { "slug": "frontend", "title": "Frontend Development", "verification": "verified", "items": [
+      { "name": "HTML & CSS", "status": "Applied", "context": "Web fundamentals coursework" },
+      { "name": "React", "status": "Applied", "context": "Alumni Portal and Hearth" },
+      { "name": "Next.js", "status": "Applied", "context": "Research Hub" },
+      { "name": "Tailwind CSS", "status": "Applied", "context": "Research Hub, Alumni Portal and Hearth" }
+    ] },
+    { "slug": "backend", "title": "Backend Development", "verification": "verified", "items": [
+      { "name": "Spring Boot", "status": "Strengthening", "context": "Alumni Portal and Full-stack Todo; actively strengthening backend skills" },
+      { "name": "Django", "status": "Applied", "context": "Career Crafter" }
+    ] },
+    { "slug": "databases", "title": "Databases & Storage", "verification": "verified", "items": [
+      { "name": "PostgreSQL", "status": "Applied", "context": "Research Hub, Alumni Portal and Hearth" },
+      { "name": "Prisma", "status": "Applied", "context": "Research Hub" },
+      { "name": "MinIO", "status": "Applied", "context": "S3-compatible storage in Research Hub" }
+    ] },
+    { "slug": "ai-data", "title": "AI, Machine Learning & Data Science", "verification": "verified", "items": [
+      { "name": "KNN", "status": "Applied", "context": "Career prediction in Career Crafter" },
+      { "name": "Sentiment analysis", "status": "Applied", "context": "Sentiment Analysis project" },
+      { "name": "Phishing detection", "status": "Applied", "context": "Phishing Detection project" },
+      { "name": "Data analysis", "status": "Applied", "context": "Diwali Sales Analysis project" }
+    ] },
+    { "slug": "cloud-devops", "title": "Cloud, DevOps & Infrastructure", "verification": "verified", "items": [
+      { "name": "AWS", "status": "Learning", "context": "Developer Associate certification currently being pursued" },
+      { "name": "Docker", "status": "Applied", "context": "Alumni Portal project stack" },
+      { "name": "Vercel", "status": "Applied", "context": "Hearth project stack" }
+    ] },
+    { "slug": "design-workflow", "title": "Design, Development Tools & Workflow", "verification": "verified", "items": [
+      { "name": "UI/UX design", "status": "Applied", "context": "Product and design contributions" },
+      { "name": "Figma", "status": "Applied", "context": "UI/UX and prototyping" },
+      { "name": "Graphic design", "status": "Applied", "context": "Design interests and branding contributions" },
+      { "name": "GitHub", "status": "Applied", "context": "Public software work and development workflow" }
+    ] }
+  ],
+  "experience": [
+    { "slug": "gencanyon", "title": "Product & Technology Lead | Business & Product Development Lead", "organisation": "Gencanyon Technologies (OPC) Pvt. Ltd.", "summary": "Contributions across product strategy, UI/UX, software development, branding, marketing, operations and product management.", "verification": "verified" }
+  ],
+  "social": [
+    { "label": "GitHub", "url": "https://github.com/Selvarajalingam" }
+  ],
+  "resume": null
+}

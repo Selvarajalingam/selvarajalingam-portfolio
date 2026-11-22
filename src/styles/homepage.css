@@ -1,0 +1,77 @@
+.hero-stage { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+.hero-stage h1 { font-size: clamp(2.6rem, 4.9vw, 5.2rem); max-width: 17ch; margin: 0; position: relative; z-index: 1; }
+.hero-art { position: relative; min-width: 0; width: 100%; max-width: 30rem; justify-self: end; }
+.sculpture-viewport { position: relative; width: 100%; aspect-ratio: 1; }
+.sculpture-fallback { width: 100%; height: 100%; object-fit: contain; }
+.sculpture-canvas { position: absolute; inset: 0; }
+.sculpture-canvas canvas { display: block; width: 100%; height: 100%; }
+.hero-art[data-renderer="webgl"] .sculpture-fallback { visibility: hidden; }
+.sculpture-control { position: absolute; right: .5rem; bottom: -.5rem; font: inherit; font-size: .875rem; color: var(--muted); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+.hero-art:not([data-eligible="true"]) .sculpture-control { display: none; }
+.home-section { border-top: 1px solid var(--border); padding-block: clamp(4rem, 7vw, 7rem); }
+.section-heading { display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem; align-items: start; margin-bottom: 3rem; }
+.section-label { margin: .3rem 0 0; color: var(--muted); }
+.section-heading h2 { max-width: 23ch; }
+.section-body { margin-left: calc((100% - 2.5rem) / 3 + 2.5rem); }
+.lead-copy { max-width: 54ch; font-size: clamp(1.2rem, 1.6vw, 1.6rem); line-height: 1.6; letter-spacing: -.015em; }
+.section-body > .text-link { margin-top: 1rem; }
+.section-lead { display: flex; align-items: start; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+.section-lead p { max-width: 40ch; }
+.section-lead a { white-space: nowrap; }
+.featured-section .section-body { margin-left: 0; }
+.featured-section .section-lead { margin-left: calc((100% - 2.5rem) / 3 + 2.5rem); }
+.featured-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.5rem; }
+.featured-project { min-height: 21rem; padding: clamp(1.5rem, 3vw, 3rem); background: var(--surface); display: flex; flex-direction: column; align-items: start; border-top: 2px solid var(--border); }
+.featured-project:nth-child(1), .featured-project:nth-child(4) { border-top-color: var(--accent); }
+.featured-project:nth-child(2) { margin-top: 3rem; }
+.featured-project:nth-child(3) { margin-bottom: 3rem; }
+.project-context { color: var(--muted); margin-bottom: 3rem; }
+.featured-project h3 { font-size: clamp(2rem, 3.4vw, 3.5rem); line-height: 1.1; letter-spacing: -.04em; font-weight: 550; margin-bottom: 1.5rem; }
+.featured-project > p:last-child { color: var(--muted); max-width: 38ch; margin-top: auto; margin-bottom: 0; }
+.service-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.service-pillars h3, .journey-list h3 { margin-top: 0; margin-bottom: .75rem; font-size: 1.3rem; font-weight: 550; letter-spacing: -.02em; line-height: 1.3; }
+.service-pillars p { margin-bottom: 0; }
+.journey-list { list-style: none; padding: 0; margin: 0; border-left: 1px solid var(--border); }
+.journey-list li { position: relative; padding-left: 2rem; padding-bottom: 1.5rem; }
+.journey-list li::before { content: ""; position: absolute; left: -.3rem; top: .45rem; width: .55rem; height: .55rem; border-radius: 50%; background: var(--accent); }
+.journey-list li:last-child { padding-bottom: 0; }
+.journey-list p { max-width: 54ch; }
+.home-section blockquote { border-left: 2px solid var(--accent); padding-left: 1.5rem; margin: 2.5rem 0 0; color: var(--muted); max-width: 57ch; }
+.skills-list { border-top: 1px solid var(--border); }
+.skills-list details { border-bottom: 1px solid var(--border); }
+.skills-list summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1.25rem; min-height: 48px; font-size: 1.125rem; }
+.skills-list summary::-webkit-details-marker { display: none; }
+.skills-list details p { max-width: 52ch; padding-right: 2rem; margin-bottom: 1.5rem; }
+.disclosure-symbol { width: .75rem; height: .75rem; position: relative; flex-shrink: 0; }
+.disclosure-symbol::before, .disclosure-symbol::after { content: ""; position: absolute; top: 50%; left: 0; width: .75rem; height: 1px; background: var(--accent); }
+.disclosure-symbol::after { transform: rotate(90deg); }
+details[open] .disclosure-symbol::after { transform: rotate(0deg); }
+.section-note { margin-block: 1.5rem 0; }
+.learning-status { color: var(--accent); font-weight: 550; }
+.empty-copy { max-width: 55ch; }
+.venture-introduction { max-width: 58ch; }
+.venture-role { font-weight: 550; max-width: 48ch; }
+.venture-names { list-style: none; padding: 0; margin: 2rem 0 0; border-top: 1px solid var(--border); }
+.venture-names li { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; padding-block: 1.2rem; border-bottom: 1px solid var(--border); }
+.venture-names li > a:first-child { font-size: 1.4rem; letter-spacing: -.025em; }
+.connect-section { padding-block: clamp(5rem, 10vw, 10rem); }
+.connect-section .section-heading h2 { font-size: clamp(2.4rem, 4.5vw, 5rem); max-width: 17ch; }
+.connect-section .button { margin-top: 1.5rem; }
+@media (max-width: 1023px) {
+  .hero-stage { grid-template-columns: 1.3fr 1fr; }
+  .hero-stage h1 { font-size: clamp(2.6rem, 5.5vw, 4.5rem); }
+  .section-heading { grid-template-columns: 1fr 2.5fr; gap: 1.5rem; }
+  .section-body, .featured-section .section-lead { margin-left: 0; }
+  .service-pillars { gap: 1.5rem; }
+}
+@media (max-width: 700px) {
+  .hero-stage { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .hero-stage h1 { max-width: 18ch; }
+  .hero-art { width: min(100%, 15rem); margin-inline: auto; }
+  .section-heading { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .featured-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .featured-project { min-height: 16rem; }
+  .featured-project:nth-child(2), .featured-project:nth-child(3) { margin: 0; }
+  .section-lead { flex-direction: column; gap: .5rem; }
+  .service-pillars { grid-template-columns: 1fr; gap: 2rem; }
+}

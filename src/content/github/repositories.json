@@ -1,0 +1,10 @@
+{
+  "account": "Selvarajalingam",
+  "profileUrl": "https://github.com/Selvarajalingam",
+  "repositories": [
+    { "name": "DuoChat_Chatting-App", "url": "https://github.com/Selvarajalingam/DuoChat_Chatting-App", "verification": "verified", "checkedOn": "2026-11-19" },
+    { "name": "Twitter_Sentimental_Analysis", "url": "https://github.com/Selvarajalingam/Twitter_Sentimental_Analysis", "verification": "verified", "checkedOn": "2026-11-19" },
+    { "name": "React_Info_Site", "url": "https://github.com/Selvarajalingam/React_Info_Site", "verification": "verified", "checkedOn": "2026-11-19" },
+    { "name": "Movie_Listing_site", "url": "https://github.com/Selvarajalingam/Movie_Listing_site", "verification": "verified", "checkedOn": "2026-11-19" }
+  ]
+}

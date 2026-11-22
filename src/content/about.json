@@ -1,0 +1,26 @@
+{
+  "headline": "Curiosity, put into practice.",
+  "introduction": "I teach technology, develop software and explore how ideas become useful digital products.",
+  "story": [
+    "My learning has always extended beyond the curriculum. Self-directed study in Python, Java and C grew alongside an interest in design and the practical side of building software.",
+    "Teaching and building now sit alongside each other in my work. I share technical knowledge through training, mentoring and project guidance, while continuing to develop applications independently.",
+    "Product thinking connects these interests: understanding a problem, considering the people using the software, and bringing design and development together."
+  ],
+  "education": { "institution": "Rathinam Technical Campus", "field": "Engineering studies in Artificial Intelligence and Data Science" },
+  "coursework": { "subject": "HTML, CSS & JavaScript", "platform": "Udemy", "status": "Course completed" },
+  "cloudLearning": { "title": "AWS Certified Developer – Associate", "status": "Currently pursuing", "body": "Continuing to develop my cloud knowledge while working towards the certification." },
+  "journey": [
+    { "slug": "independent-learning", "title": "Self-directed learning", "body": "Studying and practising Python, Java and C beyond the curriculum, with an interest in web development and design." },
+    { "slug": "technical-education", "title": "Teaching through practice", "body": "Sharing technical knowledge through training, mentoring and project guidance." },
+    { "slug": "software-and-products", "title": "Building alongside teaching", "body": "Continuing to develop software independently and contribute to product and technology work." }
+  ],
+  "contributions": [
+    { "title": "Technical education", "body": "Technical training, student mentoring and project guidance — sharing knowledge as part of an ongoing learning practice." },
+    { "title": "Independent software development", "body": "Independently developing software projects including Research Hub, Alumni Portal, Hearth and WaterBuddy." }
+  ],
+  "interests": [
+    { "title": "Football", "body": "Following Arsenal, Barcelona, Bayern Munich and AC Milan." },
+    { "title": "Japanese culture & language", "body": "Exploring Japanese culture and learning the language." },
+    { "title": "Creative work", "body": "Video editing, UI/UX and graphic design." }
+  ]
+}

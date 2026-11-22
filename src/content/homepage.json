@@ -1,0 +1,47 @@
+{
+  "introduction": {
+    "heading": "Learning becomes more meaningful when you build with it.",
+    "body": "I'm Selvarajalingam — a Technology Educator, Software Developer and Product Builder. My work brings together continuous learning, practical teaching and independent software development.",
+    "philosophy": "Technology is not just about writing code. It is about learning continuously, solving problems, building meaningful things, and sharing knowledge that helps others do the same."
+  },
+  "featured": [
+    { "slug": "research-hub", "context": "Research & facilities" },
+    { "slug": "alumni-portal", "context": "Community & connection" },
+    { "slug": "hearth", "context": "Everyday finances" },
+    { "slug": "waterbuddy", "context": "Desktop companion" }
+  ],
+  "services": [
+    { "title": "Software development", "body": "Websites, full-stack applications, Java/Spring Boot backends and AI integrations." },
+    { "title": "Product & design", "body": "MVP and startup prototypes, UI/UX design and Figma prototyping." },
+    { "title": "Technical education", "body": "Technical training, corporate workshops, mentoring and project guidance." }
+  ],
+  "journey": [
+    { "title": "Learn independently.", "body": "Self-directed learning in Python, Java and C, alongside an interest in design and technology." },
+    { "title": "Share what you learn.", "body": "Practical teaching, technical training and helping others work through their projects." },
+    { "title": "Keep building.", "body": "Developing software alongside teaching, and bringing product thinking into the process." }
+  ],
+  "impact": {
+    "heading": "A practice built around people and products.",
+    "body": "Technical training. Student mentoring and project guidance. Software development and product contributions. Different ways to put technology into practice."
+  },
+  "skills": [
+    { "title": "Programming Languages", "body": "Python, Java and C through self-directed learning; JavaScript and TypeScript in web development." },
+    { "title": "Frontend Development", "body": "React, Next.js, HTML, CSS and Tailwind CSS." },
+    { "title": "Backend Development", "body": "Java and Spring Boot — actively strengthening my backend skills." },
+    { "title": "Databases & Storage", "body": "PostgreSQL and S3-compatible storage." },
+    { "title": "AI, Machine Learning & Data Science", "body": "Projects include career prediction, sentiment analysis, phishing detection and sales analysis." },
+    { "title": "Cloud, DevOps & Infrastructure", "body": "AWS learning, with the Developer Associate certification currently being pursued." },
+    { "title": "Design, Development Tools & Workflow", "body": "UI/UX design, Figma prototyping, graphic design and GitHub." }
+  ],
+  "cloud": {
+    "heading": "Keep learning. Share the process.",
+    "credential": "AWS Certified Developer – Associate · Currently pursuing",
+    "emptyState": "Selected cloud videos, articles and learning resources will appear here when the links are ready to share."
+  },
+  "lab": { "heading": "Room for the next idea.", "emptyState": "No experiments to share just yet. This space will grow with real explorations, prototypes and things learned along the way.", "publishedIntro": "Explore published experiments and progress notes." },
+  "connect": {
+    "heading": "Let's make something meaningful.",
+    "body": "Whether you're building something exciting, exploring an idea, or looking to collaborate — I'd love to hear from you.",
+    "availability": "Open to freelance projects, development opportunities, training and meaningful collaborations."
+  }
+}

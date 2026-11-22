@@ -1,0 +1,13 @@
+# Phase 9 — GitHub and cloud resources
+
+Keep the agreed eleven homepage sections. Add a compact GitHub repository list within Featured Work, and a manually curated resource renderer in AWS & cloud. Use existing ink/paper/silver/violet tokens and sans-serif hierarchy; names and real destinations carry the list, without fake activity charts, badges, thumbnails or repository screenshots. Preserve static/no-JavaScript content.
+
+Public metadata inspection on 19 November 2026 confirmed the supplied GitHub account and public, non-fork repositories. Curate four actual observed repositories (DuoChat_Chatting-App, Twitter_Sentimental_Analysis, React_Info_Site, Movie_Listing_site), using exact API-provided destinations/names. This is editorial selection from observed public metadata, not an owner approval or evidence that a repository is a particular Work case study. Do not copy repository files or infer features/achievements/authorship from names.
+
+Canonical JSON stores curated links and evidence date, not guessed counts. A server-only adapter fetches only the allowlisted public repo endpoints serially with timeouts, validates account/name/URL/public visibility and projects a small safe metadata snapshot. A cached internal route returns snapshots; no arbitrary query input, client token, raw API records, private data or browser-side GitHub requests. Static curated links remain available on timeout, API rate limiting, malformed data, disabled integration and no JavaScript. Failed/missing metadata means absent counts, never zero placeholders. No retry loop or contribution heatmap.
+
+Cloud resources remain [] because no actual video/article URLs were supplied. Build schema-validated text cards for future manually approved records, with optional category/attribution, exact safe URLs and protected external links. No fabricated entries or YouTube API dependency/embeds. AWS credential stays Currently pursuing.
+
+Tasks: record verified public curation; implement/test bounded server adapter and cached API; integrate static fallback and optional metadata enhancement; migrate resource collection and render honest empty/future cards; test failures/privacy/allowlist, no-JavaScript/blocked API, metadata display, both-theme axe/320–1440px; run full quality/build/audit/bundle gates and inspect screenshots; document operation, cache limits and content follow-ups.
+
+References checked: https://docs.github.com/en/rest/repos/repos , https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api , https://nextjs.org/docs/app/api-reference/functions/unstable_cache . No new dependencies planned.
