@@ -27,6 +27,8 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      # npm 12 validates optional/peer lock entries that npm 11 can accept as incomplete.
+      - run: npm install --global npm@12.2.3
       - run: npm ci
       - run: npm run check
       - run: npm run seo:validate

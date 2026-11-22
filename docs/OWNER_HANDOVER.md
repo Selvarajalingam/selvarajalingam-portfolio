@@ -2,7 +2,7 @@
 
 ## Current delivery state
 
-The application is implemented locally through Phase 11. Phase 12 prepares CI, deployment smoke checks and this handover. There is no verified GitHub remote, hosted workflow run, Vercel project, preview URL, production deployment or approved production origin. Do not treat a local build or this document as release approval. The public repository named in the brief is a target, not an existing verified repository.
+The application is implemented locally through Phase 11. Phase 12 prepares CI, deployment smoke checks and this handover. The user has now pushed initial commit `b79fcd2` to `Selvarajalingam/selvarajalingam-portfolio`; local `main` and its GitHub remote are configured. The first Vercel main-branch import failed during `npm ci`; a repaired lockfile passed a fresh npm 12 install, lint/types/148 tests/build and awaits push/redeploy. No successful hosted deployment, hosted quality run or approved production origin is recorded. Use `docs/RELEASE_RECORD.md` for current evidence. Do not treat a local build or this document as release approval.
 
 Publication remains `origin: null`, `allowIndexing: false`; effective analytics is inactive. Lab and cloud-resource collections are intentionally empty. Live contact is disabled without verified sender, firewall and exact deployment-origin configuration. Outstanding factual/assets decisions remain in `CONTENT_VERIFICATION.md` and `ASSET_MANIFEST.md`.
 
