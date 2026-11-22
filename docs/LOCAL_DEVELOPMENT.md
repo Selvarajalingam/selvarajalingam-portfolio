@@ -117,13 +117,13 @@ Server-only `src/lib/github/provider.ts` validates the public flag, visibility, 
 
 ## Phase 10 SEO, privacy and analytics
 
-`src/content/publication.json` is the publication authority. The user explicitly left `origin` null and indexing false. `webAnalytics` is a production preference, not current collection. Local/preview/unconfigured deployments remain noindex, without absolute canonical/OG URLs or URL-based JSON-LD graphs; sitemap entries remain empty. Contact's `SITE_URL` is separate security configuration.
+`src/content/publication.json` is the publication authority. The user initially deferred the origin, then confirmed `https://selvarajalingam.vercel.app` and requested SEO setup. Current source uses that origin for absolute canonical/OG and JSON-LD URLs, with `allowIndexing: false` and `webAnalytics: false`. Noindex and empty sitemap remain intentional until final release approval. Contact's `SITE_URL` is separate security configuration. Push/redeploy is required for the updated SEO to reach the hosted site.
 
 `src/lib/seo/routes.ts` centralizes unique metadata for all actual content pages. Pages call the same metadata and safe structured-data helpers. Root metadata has no homepage canonical to leak into 404s. `robots.ts`, `sitemap.ts` and HTTP headers use the publication gates. The catalog includes only real project/venture/Lab entries and uses real update dates only when supplied.
 
 `npm run assets:og` renders original profile-driven 1200×630 artwork from the existing sculpture SVG through Next ImageResponse. `npm run seo:validate` inspects all emitted content HTML and the actual PNG. `src/app/icon.svg` is an original compact brand icon. No portrait/product screenshot substitute is generated.
 
-Pinned `@vercel/analytics` 2.0.1 integrates production-only pageviews with origin/path checks, query/hash filtering, DNT/GPC and sensitive-referrer exclusion. Local/preview builds do not mount it; GA4 is not implemented. Privacy text uses the same effective gate. Tests exercise configured release logic with isolated fixtures and the SDK mock, while browser checks verify the real unconfigured/no-tracking state. `@types/jsdom` 30.0.0 supplies strict types for the existing JSDOM parser used by emitted-HTML checks. No actual analytics intake/dashboard or public crawler verification has occurred.
+Pinned `@vercel/analytics` 2.0.1 integrates production-only pageviews with origin/path checks, query/hash filtering, DNT/GPC and sensitive-referrer exclusion. Local/preview builds do not mount it; GA4 is not implemented. Privacy text uses the same effective gate. Tests exercise configured release logic with isolated fixtures and the SDK mock, while browser checks verify the configured-origin/no-tracking state. `@types/jsdom` 30.0.0 supplies strict types for the existing JSDOM parser used by emitted-HTML checks. No actual analytics intake/dashboard or public crawler verification has occurred.
 
 ## Tooling decisions
 
@@ -133,7 +133,7 @@ On this Codex Windows host, a later restricted-sandbox build also hit `EPERM` wh
 
 ESLint 9.39.5 is deprecated upstream but currently required by the bundled React, import and accessibility plugin peer ranges. ESLint 10 was tried and produced an invalid dependency tree. Keep the compatible version until all bundled plugins support ESLint 10; audit separately for advisories.
 
-The site is intentionally `noindex` before release. Publication remains unconfigured at the user's request; origin verification, content approval and release authorization must precede activation. Analytics is inactive. Public GitHub metadata is optional and server-cached; contact-form email remains disabled without verified deployment configuration. Adaptive homepage WebGL artwork is active on eligible devices.
+The site is intentionally `noindex` while content review remains open. The confirmed production origin is configured locally; content approval and release authorization precede indexing activation. Analytics is explicitly off. Public GitHub metadata is optional and server-cached; contact email remains disabled without verified deployment configuration. Adaptive homepage WebGL artwork is active on eligible devices.
 
 ## Hardening checks
 

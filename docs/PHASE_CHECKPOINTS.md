@@ -394,3 +394,24 @@ User pushed initial `main` commit `b79fcd2`; local remote now matches `https://g
 Actual checks: isolated real npm 12 clean install passed; fresh exported source with repaired lock passed npm 12 install, lint, strict types, all 148 tests in 20 files, content validation and production build. Working-copy `npm run check` also passed. npm 12 Linux x64/glibc selection dry run passed (not a real Linux build). Dependency audit reported zero vulnerabilities; `git diff --check` passed. No UI code changed and browser suites were not repeated for lock metadata only. Full detail: `docs/DEPLOYMENT_INSTALL_FIX.md`.
 
 Updated files: `package-lock.json`, `.github/workflows/quality.yml`, install-fix documentation, owner handover and release record. No push, merge or hosted retry performed by the agent. Next: reviewed GitHub update and Vercel deployment of the new main revision, retaining `npm ci`, `npm run build`, disabled contact/GitHub switches and null publication origin; then record actual hosted result and smoke. Deployment is still unverified.
+
+## Confirmed-origin SEO checkpoint — 22 November 2026
+
+The user confirmed the working `https://selvarajalingam.vercel.app` address and requested SEO setup. This updates only the earlier deferred-origin decision: `src/content/publication.json` now uses that exact host. Existing metadata/structured-data helpers emit route canonicals, absolute Open Graph/Twitter image URLs and truthful Person/WebSite/page JSON-LD for all 23 content pages. No portfolio facts or assets were invented. `allowIndexing` remains false pending final content approval, keeping noindex, blocked robots and empty sitemap. `webAnalytics` is explicitly false so configuring the origin does not activate production tracking. Contact stays disabled.
+
+Files: publication JSON; positive configured-origin assertions in `tests/e2e/seo.spec.ts`; canonical normalization in emitted-SEO and GET smoke scripts; updated content/deployment/local-development/owner/release/status documentation. Next metadata emits the root origin without a trailing slash. The initial validators incorrectly treated this as a different URL; they now compare parsed absolute URLs while preserving exact host/path checks. The initial emitted/browser run caught this; corrected runs passed.
+
+Actual verification:
+
+- `npm run check`: zero-warning lint, strict types, 148 tests in 20 files, content validation and production Webpack build passed.
+- Final `npm run lint` / `npm run typecheck`: passed after validator/browser-check updates.
+- `npm run seo:validate`: all 23 emitted routes passed configured canonical/social/structured-data/noindex checks; original 1200x630 PNG verified.
+- `npm run artifacts:validate`: 1,046 internal links, 89 fragments and 278 embedded references, no issues.
+- `npm run perf:bundles`: all 23 routes remain below the 200 KiB initial estimate, identified optional Three chunks 134.5 KiB, no initial engine.
+- Final full `npm run test:e2e`: 128 passed (1.3 minutes). Checks cover configured origin on all routes, absolute social images, two real structured-data blocks, noindex/discovery gates, no homepage canonical on 404 and no analytics scripts/requests, plus all prior behavior.
+- Pure configuration check with Vercel production flags: exact confirmed origin, `indexable: false`, `analyticsEnabled: false`.
+- `git diff --check`: passed. No package/dependency change or UI layout change; the cross-browser visual audit was not repeated for this metadata-only update.
+
+Hosted evidence before this change: all 23 GET-only smoke checks passed at the confirmed URL, homepage HTTP 200 with noindex. Old rust-suffixed domain returned 404 rather than the intended redirect. Neither finding proves deployment of this new source. Exact hosted commit/deployment ID and hosted CI result remain unverified.
+
+Next: reviewed commit/push and deployment of this SEO change, then `npm run deploy:smoke -- https://selvarajalingam.vercel.app preview` from the matching revision. Here `preview` is the noindex validation mode, not a claim that Vercel's main-branch deployment is a Preview environment. No Vercel env changes are needed for SEO. Keep indexing and analytics off until their separate reviewed activation steps. No commit, push, merge, deployment, real email or Search Console submission was performed by the agent.

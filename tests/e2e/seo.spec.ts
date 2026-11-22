@@ -21,11 +21,25 @@ test("all actual pages have unique consistent SEO without a guessed origin", asy
     expect(meta('meta[name="twitter:title"]')).toBe(document.title);
     expect(meta('meta[property="og:description"]')).toBe(meta('meta[name="description"]'));
     expect(meta('meta[name="robots"]')).toBe(indexable ? "index, follow" : "noindex, nofollow");
-    expect(document.querySelector('link[rel="canonical"]')?.getAttribute("href")).toBe(publication.origin ? new URL(path, publication.origin).href : undefined);
+    const rawCanonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href");
+    expect(rawCanonical ? new URL(rawCanonical).href : undefined).toBe(publication.origin ? new URL(path, publication.origin).href : undefined);
     if (!publication.origin) {
       expect(meta('meta[property="og:url"]')).toBeUndefined();
       expect(meta('meta[property="og:image"]')).toBeUndefined();
       expect(document.querySelectorAll('script[type="application/ld+json"]')).toHaveLength(0);
+    } else {
+      const canonical = new URL(path, publication.origin).href;
+      const image = new URL("/assets/brand/og/portfolio.png", publication.origin).href;
+      expect(new URL(meta('meta[property="og:url"]')!).href).toBe(canonical);
+      expect(meta('meta[property="og:image"]')).toBe(image);
+      expect(meta('meta[name="twitter:image"]')).toBe(image);
+      const graphs = [...document.querySelectorAll('script[type="application/ld+json"]')].map((script) => JSON.parse(script.textContent ?? ""));
+      expect(graphs).toHaveLength(2);
+      expect(graphs[0]).toMatchObject({ "@context": "https://schema.org", "@graph": expect.arrayContaining([
+        expect.objectContaining({ "@type": "Person", url: `${publication.origin}/` }),
+        expect.objectContaining({ "@type": "WebSite", url: `${publication.origin}/` }),
+      ]) });
+      expect(graphs[1]).toMatchObject({ "@id": `${canonical}#webpage`, url: canonical });
     }
     dom.window.close();
   }

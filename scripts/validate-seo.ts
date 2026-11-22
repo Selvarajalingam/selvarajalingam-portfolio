@@ -16,9 +16,12 @@ for (const route of routeCatalog) {
   requireCondition(value('meta[name="description"]') === route.description, `Incorrect description: ${route.path}`);
   requireCondition(value('meta[property="og:title"]') === route.title && value('meta[property="og:description"]') === route.description, `Incorrect Open Graph data: ${route.path}`);
   requireCondition(value('meta[name="twitter:title"]') === route.title && value('meta[name="twitter:card"]') === "summary_large_image", `Incorrect Twitter metadata: ${route.path}`);
-  const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href");
+  const rawCanonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href");
+  // Next emits the root origin without '/', which is the same absolute URL.
+  const canonical = rawCanonical ? new URL(rawCanonical).href : undefined;
   requireCondition(canonical === (publication.origin ? new URL(route.path, publication.origin).href : undefined), `Incorrect canonical: ${route.path}`);
-  requireCondition(value('meta[property="og:url"]') === canonical, `OG URL differs from canonical: ${route.path}`);
+  const ogUrl = value('meta[property="og:url"]');
+  requireCondition((ogUrl ? new URL(ogUrl).href : undefined) === canonical, `OG URL differs from canonical: ${route.path}`);
   const jsonLd = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map((script) => JSON.parse(script.textContent ?? ""));
   requireCondition(jsonLd.length === (publication.origin ? 2 : 0), `Unexpected structured data: ${route.path}`);
   if (publication.origin) requireCondition(value('meta[property="og:image"]') === new URL(socialImage.path, publication.origin).href, `Missing shared social image: ${route.path}`);

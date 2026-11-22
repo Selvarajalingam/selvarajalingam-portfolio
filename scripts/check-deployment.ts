@@ -44,7 +44,8 @@ for (const route of routeCatalog) {
     check(document.querySelector('meta[property="og:image"]')?.getAttribute("content") === (publication.origin ? new URL(socialImage.path, publication.origin).href : undefined), `${route.path}: social image origin mismatch`);
     const robots = document.querySelector('meta[name="robots"]')?.getAttribute("content") ?? "";
     check(indexable ? /\bindex\b/.test(robots) && !robots.includes("noindex") : robots.includes("noindex"), `${route.path}: incorrect meta indexing state`);
-    check(document.querySelector('link[rel="canonical"]')?.getAttribute("href") === (publication.origin ? new URL(route.path, publication.origin).href : undefined), `${route.path}: canonical mismatch`);
+    const rawCanonical = document.querySelector('link[rel="canonical"]')?.getAttribute("href");
+    check((rawCanonical ? new URL(rawCanonical).href : undefined) === (publication.origin ? new URL(route.path, publication.origin).href : undefined), `${route.path}: canonical mismatch`);
     dom.window.close();
   } catch { failures.push(`${route.path}: HTML could not be read`); }
 }

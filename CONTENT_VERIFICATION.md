@@ -80,3 +80,9 @@ The user explicitly answered “Keep the origin unconfigured for now.” Publica
 Metadata uses included verified page facts only. Minimal structured-data builders omit credentials, employment dates, degree wording, ratings, achievements and organization ownership. Fixtures test configured-origin/release behavior but are not production configuration. The original abstract OG image/icon use actual brand copy, not an invented portrait or project screenshot.
 
 Vercel Web Analytics is integrated with production/origin gates, known-path pageview filtering, query/hash removal and privacy-signal checks. It is not collecting in this unconfigured local build. GA4 remains unimplemented/disabled. Privacy wording reflects actual gates and does not invent provider retention guarantees. Actual domain/crawler/social/analytics-intake checks remain required after an origin/deployment is deliberately configured.
+
+## Confirmed production origin — SEO setup, 22 November 2026
+
+The user deployed successfully, renamed the Vercel domain to `https://selvarajalingam.vercel.app`, confirmed it loads and requested SEO setup. This supersedes the earlier deferred-origin decision for the origin field only. The exact confirmed HTTPS origin is now configured in source. Canonical, social-image and truthful Person/WebSite/page structured-data URLs use it after deployment.
+
+`allowIndexing` stays false pending final content/release approval. Sitemap remains empty and HTTP/meta noindex plus crawler blocking remain active. `webAnalytics` is explicitly false to prevent setting the origin from activating production tracking; analytics is a separate future step. No content, credential, metric, image or project fact was added, and contact configuration is unchanged. The updated source has not been pushed/deployed by the agent.

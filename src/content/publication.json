@@ -1,5 +1,5 @@
 {
-  "origin": null,
+  "origin": "https://selvarajalingam.vercel.app",
   "allowIndexing": false,
-  "webAnalytics": true
+  "webAnalytics": false
 }

@@ -2,7 +2,7 @@
 
 ## Target
 
-Phase 12 status: local CI/smoke/handover preparation is available in `docs/OWNER_HANDOVER.md`. No remote/commit, authenticated project link, preview URL or production deployment has been verified. The domain below remains a proposed target; the user chose to keep the production origin unconfigured. Complete the access/preview/review steps before publication.
+Phase 12 status: the user pushed the source and deployed successfully at `https://selvarajalingam.vercel.app`; all 23 GET-only smoke checks passed before the origin update. The confirmed origin is configured locally for the next deployment. Indexing remains disabled and analytics is explicitly off. Exact hosted commit/deployment IDs, final content approval, provider delivery and the new SEO deployment still need verification. See `docs/RELEASE_RECORD.md` and `docs/OWNER_HANDOVER.md`.
 - GitHub: `Selvarajalingam/selvarajalingam-portfolio` (public)
 - Branch: `main`
 - Vercel free tier, subject to current limits
@@ -72,12 +72,12 @@ Cloud resources remain manually curated and empty until real links are supplied.
 
 ## Analytics/domain
 
-Publication settings are `src/content/publication.json`, not contact's `SITE_URL`. The user explicitly chose to keep the production origin unconfigured in Phase 10. Current `origin: null` and `allowIndexing: false` deliberately suppress absolute canonicals, social image URLs, JSON-LD URL graphs and sitemap entries. Robots disallows crawling and HTTP/meta noindex remains active. Local metadata does not guess localhost, a preview host or the proposed Vercel target. The original OG PNG and icon are still locally viewable/testable.
+Publication settings are `src/content/publication.json`, not contact's `SITE_URL`. After initially deferring the origin in Phase 10, the user confirmed `https://selvarajalingam.vercel.app` and requested SEO setup. That exact origin now supplies canonical/social/structured-data URLs locally. `allowIndexing: false` keeps the sitemap empty, robots disallowing crawling and HTTP/meta noindex active. `webAnalytics: false` explicitly prevents collection after deployment. The source change must be pushed/redeployed before it is live. No additional Vercel environment variable is needed for this SEO step.
 
 When the real production origin is confirmed and the site is ready:
 
 1. Verify deployment/domain ownership and the exact HTTPS origin; record it in publication JSON without path/trailing slash. A configured URL is an operator assertion, not proof of availability. Keep `allowIndexing: false` during content/quality review. Contact `SITE_URL` separately specifies the actual submission origin for that deployment.
-2. Keep `webAnalytics: true` for the requested initial Vercel Web Analytics, or set it false to disable. Effective collection requires a configured origin, Vercel's production environment (`VERCEL=1`, `VERCEL_ENV=production`), the visitor's origin matching and an allowlisted actual route. Preview/local/unconfigured builds do not mount the SDK. Enable Web Analytics in the Vercel project dashboard before checking the real production intake; no analytics dashboard action was performed here.
+2. Current `webAnalytics` is explicitly false; activate it separately after review. Effective collection additionally requires a configured origin, Vercel's production environment (`VERCEL=1`, `VERCEL_ENV=production`), the visitor's origin matching and an allowlisted actual route. Preview/local/unconfigured builds do not mount the SDK. Enable Web Analytics in the Vercel project dashboard before checking real production intake; no analytics dashboard action was performed here.
 3. The implementation filters to known-route pageviews, strips query/hash, sends no custom events/form fields and respects DNT/GPC. Potentially sensitive referring URLs suppress the integration. Verify actual deployed requests and provider settings, including redaction, before release. SDK intake paths can vary in version 2; do not rely only on a fixed `/insights` URL when inspecting network traffic. Privacy copy uses the same production gate. No unnecessary cookie banner is added.
 4. GA4 has no script, configuration hook or consent manager in this implementation; an environment variable alone does not activate it. Any future GA4 work requires deliberate consent-aware implementation and privacy review. Do not assume Vercel analytics setup covers another tracker.
 5. Only after content approval, actual origin verification and release authorization, set `allowIndexing: true` in the reviewed release. Production-only gates then enable index/follow, the actual sitemap and crawler allow rules. Preview remains noindex even if the flag is true. APIs stay noindex. There are no guessed last-modified dates.
