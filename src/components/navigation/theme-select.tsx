@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import GlideSelect from "@/components/ui/glide-select";
 
 type Preference = "dark" | "light" | "system";
 const key = "selva:theme";
@@ -40,14 +41,13 @@ function subscribe(callback: () => void) {
 
 export function ThemeSelect() {
   const preference = useSyncExternalStore(subscribe, getPreference, () => "dark" as const);
-  return <label className="theme-control"><span className="sr-only">Color theme</span>
-    <select aria-label="Color theme" value={preference} onChange={(event) => {
-      const next = event.target.value;
+  return <div className="theme-control">
+    <GlideSelect ariaLabel="Color theme" size="md" align="right" menuWidth={176} options={[{ value: "dark", label: "Dark" }, { value: "light", label: "Light" }, { value: "system", label: "System" }]} value={preference} onChange={(next) => {
       if (!valid(next)) return;
       memoryPreference = next;
       try { localStorage.setItem(key, next); } catch { /* Use the in-memory preference when storage is blocked. */ }
       applyTheme(next);
       window.dispatchEvent(new Event("selva:theme-change"));
-    }}><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select>
-  </label>;
+    }} />
+  </div>;
 }

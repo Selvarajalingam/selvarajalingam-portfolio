@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import ventures from "../../src/content/ventures/index.json" with { type: "json" };
@@ -37,7 +38,7 @@ for (const theme of ["dark", "light"]) {
   test(`venture routes are accessible and responsive in ${theme}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/ventures");
-    await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+    await chooseSelect(page, "Color theme", theme);
     const viewport = page.viewportSize()!;
     for (const slug of ["", ...ventures.map((venture) => venture.slug)]) {
       await page.goto(`/ventures${slug ? `/${slug}` : ""}`);

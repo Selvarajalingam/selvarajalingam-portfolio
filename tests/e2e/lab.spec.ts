@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -7,20 +8,24 @@ test("Lab launches empty and filter controls preserve an honest empty state", as
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Room for the next idea.");
   await expect(page.locator(".lab-card")).toHaveCount(0);
   await expect(page.locator('main a[href^="/lab/"]')).toHaveCount(0);
-  await expect(page.locator('select[aria-label="Lab category"] option')).toHaveCount(7);
-  await expect(page.locator('select[aria-label="Progress status"] option')).toHaveCount(4);
+  await page.getByRole("combobox", { name: "Lab category", exact: true }).click();
+  await expect(page.getByRole("listbox", { name: "Lab category", exact: true }).getByRole("option")).toHaveCount(7);
+  await page.keyboard.press("Escape");
+  await page.getByRole("combobox", { name: "Progress status", exact: true }).click();
+  await expect(page.getByRole("listbox", { name: "Progress status", exact: true }).getByRole("option")).toHaveCount(4);
+  await page.keyboard.press("Escape");
   const search = page.getByRole("searchbox", { name: "Find an experiment" });
   await search.fill("an unsupplied idea");
-  await page.getByRole("combobox", { name: "Lab category", exact: true }).selectOption("Developer Tools & Automation");
-  await page.getByRole("combobox", { name: "Progress status", exact: true }).selectOption("Building");
+  await chooseSelect(page, "Lab category", "Developer Tools & Automation");
+  await chooseSelect(page, "Progress status", "Building");
   await expect(page.getByRole("heading", { name: "No experiments to share just yet." })).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("No experiments published.");
   await page.getByRole("button", { name: "Reset filters" }).focus();
   await page.keyboard.press("Enter");
   await expect(search).toBeFocused();
   await expect(search).toHaveValue("");
-  await expect(page.getByRole("combobox", { name: "Lab category", exact: true })).toHaveValue("All");
-  await expect(page.getByRole("combobox", { name: "Progress status", exact: true })).toHaveValue("All");
+  await expect(page.getByRole("combobox", { name: "Lab category", exact: true })).toHaveAttribute("data-value", "All");
+  await expect(page.getByRole("combobox", { name: "Progress status", exact: true })).toHaveAttribute("data-value", "All");
   await page.getByRole("link", { name: "Explore my work", exact: true }).click();
   await expect(page).toHaveURL("/work");
 });
@@ -29,7 +34,7 @@ for (const theme of ["dark", "light"]) {
   test(`Lab is accessible and responsive in ${theme}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/lab");
-    await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+    await chooseSelect(page, "Color theme", theme);
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     const viewport = page.viewportSize()!;
     for (const width of [320, 390, 768, 1024, 1440]) {

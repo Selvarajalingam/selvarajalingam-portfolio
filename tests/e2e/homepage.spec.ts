@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -15,7 +16,7 @@ test("homepage sections, disclosures and fallback work on mobile", async ({ page
   await page.keyboard.press("Enter");
   await expect(skill).toHaveAttribute("open", "");
   await expect(skill.locator("p")).toContainText("actively strengthening");
-  await page.getByLabel("Color theme", { exact: true }).selectOption("light");
+  await chooseSelect(page, "Color theme", "light");
   await expect(page.locator(".hero-art")).toHaveAttribute("data-eligible", "false");
   await expect(page.locator(".sculpture-fallback")).toBeVisible();
   await expect(page.locator(".sculpture-canvas canvas")).toHaveCount(0);
@@ -42,7 +43,7 @@ for (const constraint of ["reduced-motion", "low-memory", "save-data"] as const)
     }, constraint);
     const page = await context.newPage();
     await page.goto("http://127.0.0.1:3100/");
-    await page.getByLabel("Color theme", { exact: true }).selectOption("light");
+    await chooseSelect(page, "Color theme", "light");
     await expect(page.locator(".hero-art")).toHaveAttribute("data-eligible", "false");
     await expect(page.locator(".sculpture-fallback")).toBeVisible();
     const requested = await page.evaluate(() => performance.getEntriesByType("resource").map((entry) => entry.name));
@@ -67,7 +68,7 @@ test("capable desktop renders original 3D and releases it when preferences chang
   const bounds = await cta.boundingBox();
   expect(bounds && bounds.y + bounds.height).toBeLessThan(900);
   await page.screenshot({ path: test.info().outputPath("homepage-desktop-3d.png") });
-  await page.getByLabel("Color theme", { exact: true }).selectOption("light");
+  await chooseSelect(page, "Color theme", "light");
   await page.screenshot({ path: test.info().outputPath("homepage-desktop-light.png") });
   await page.getByRole("button", { name: "Use static artwork" }).click();
   await expect(page.locator(".sculpture-canvas canvas")).toHaveCount(0);

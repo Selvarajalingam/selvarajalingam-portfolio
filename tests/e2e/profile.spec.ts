@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -7,7 +8,7 @@ for (const route of ["about", "experience"] as const) {
       await page.emulateMedia({ reducedMotion: "reduce" });
       const response = await page.goto(`/${route}`);
       expect(response?.status()).toBe(200);
-      await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+      await chooseSelect(page, "Color theme", theme);
       await expect(page).toHaveTitle(`${route === "about" ? "About" : "Experience"} | Selvarajalingam`);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(route === "about" ? "Curiosity, put into practice." : "Learning, teaching and building.");
       expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);

@@ -1,14 +1,35 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import projects from "../../src/content/projects/index.json" with { type: "json" };
+
+test("shared filters survive reload, viewport changes and browser history", async ({ page }) => {
+  await page.goto("/work?category=Java+Development&technology=Spring+Boot");
+  const titles = page.locator(".work-results-grid article h3");
+  await expect(titles).toHaveText(["Alumni Portal", "Full-stack Todo"]);
+  await chooseSelect(page, "Sort projects", "title");
+  await expect(page).toHaveURL(/sort=title/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.reload();
+  await expect(titles).toHaveText(["Alumni Portal", "Full-stack Todo"]);
+  await expect(page.getByRole("combobox", { name: "Category", exact: true })).toHaveAttribute("data-value", "Java Development");
+  await page.getByRole("button", { name: "Reset filters" }).click();
+  await expect(page).toHaveURL("/work");
+  await expect(titles).toHaveCount(10);
+  await page.goBack();
+  await expect(titles).toHaveCount(2);
+  await expect(page.getByRole("combobox", { name: "Sort projects", exact: true })).toHaveAttribute("data-value", "title");
+  await page.goForward();
+  await expect(titles).toHaveCount(10);
+});
 
 test("Work discovery composes filters, sorts, announces results and resets", async ({ page }) => {
   await page.goto("/work");
   const titles = page.locator(".work-results-grid article h3");
   await expect(titles).toHaveCount(10);
   expect((await titles.allTextContents()).slice(0, 4)).toEqual(["Research Hub", "Alumni Portal", "Hearth", "WaterBuddy"]);
-  await page.getByRole("combobox", { name: "Category", exact: true }).selectOption("Java Development");
-  await page.getByRole("combobox", { name: "Technology", exact: true }).selectOption("Spring Boot");
+  await chooseSelect(page, "Category", "Java Development");
+  await chooseSelect(page, "Technology", "Spring Boot");
   await expect(titles).toHaveCount(2);
   await page.getByRole("searchbox", { name: "Find a project" }).fill(" ALUMNI ");
   await expect(titles).toHaveText(["Alumni Portal"]);
@@ -16,12 +37,14 @@ test("Work discovery composes filters, sorts, announces results and resets", asy
   await page.getByRole("button", { name: "Reset filters" }).click();
   await expect(page.getByRole("searchbox")).toBeFocused();
   await expect(titles).toHaveCount(10);
-  await page.getByRole("combobox", { name: "Sort projects", exact: true }).selectOption("title");
+  await chooseSelect(page, "Sort projects", "title");
   expect((await titles.allTextContents())[0]).toBe("Alumni Portal");
   expect((await titles.allTextContents()).at(-1)).toBe("WaterBuddy");
-  await expect(page.locator('select[aria-label="Sort projects"] option[value="updated"]')).toHaveCount(0);
-  await page.getByRole("combobox", { name: "Category", exact: true }).selectOption("Desktop Applications");
-  await page.getByRole("combobox", { name: "Technology", exact: true }).selectOption("Spring Boot");
+  await page.getByRole("combobox", { name: "Sort projects", exact: true }).click();
+  await expect(page.getByRole('option', { name: 'Recently updated', exact: true })).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await chooseSelect(page, "Category", "Desktop Applications");
+  await chooseSelect(page, "Technology", "Spring Boot");
   await expect(page.getByRole("heading", { name: "No projects match these filters." })).toBeVisible();
   await page.getByRole("button", { name: "Reset filters" }).focus();
   await page.keyboard.press("Enter");
@@ -58,7 +81,7 @@ for (const route of ["/work", "/work/research-hub", "/work/sentiment-analysis"])
     test(`${route} is accessible and responsive in ${theme}`, async ({ page }) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto(route);
-      await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+      await chooseSelect(page, "Color theme", theme);
       expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
       const viewport = page.viewportSize()!;
       for (const width of [320, 390, 768, 1024, 1440]) {

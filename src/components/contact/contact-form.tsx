@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { contactFields, contactSubjects, type ContactField, type ContactResult } from "@/lib/contact/model";
 import { SecurityCheck } from "./security-check";
+import GlideSelect from "@/components/ui/glide-select";
 
 export function ContactForm() {
   const [available, setAvailable] = useState<boolean | null>(null);
@@ -11,6 +12,7 @@ export function ContactForm() {
   const [result, setResult] = useState<ContactResult | null>(null);
   const [challenge, setChallenge] = useState<{ siteKey: string; attempt: number } | null>(null);
   const [token, setToken] = useState("");
+  const [subject, setSubject] = useState("");
   const startedAt = useRef(0);
   const submissionId = useRef("");
   const status = useRef<HTMLDivElement>(null);
@@ -27,7 +29,7 @@ export function ContactForm() {
   useEffect(() => {
     if (pending || !result) return;
     const first = contactFields.find((field) => result.errors?.[field]);
-    const destination = first ? formRef.current?.elements.namedItem(first) : status.current;
+    const destination = first ? formRef.current?.querySelector<HTMLElement>(`#${first}`) : status.current;
     if (destination instanceof HTMLElement) destination.focus();
   }, [pending, result]);
 
@@ -37,6 +39,7 @@ export function ContactForm() {
     const form = event.currentTarget;
     const errors: Partial<Record<ContactField, string>> = {};
     for (const field of contactFields) {
+      if (field === "subject") { if (!subject) errors.subject = "Please choose a subject."; continue; }
       const control = form.elements.namedItem(field) as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
       if (!control.checkValidity()) errors[field] = control.validationMessage;
     }
@@ -70,12 +73,12 @@ export function ContactForm() {
     <div className="contact-feedback" ref={status} tabIndex={-1} role={result?.status === "error" || result?.status === "uncertain" ? "alert" : "status"} aria-live="polite">
       {pending ? <p>Sending your enquiry…</p> : result ? <p>{result.message}</p> : available === null ? <p className="muted">The form needs JavaScript to validate and submit. Please use the email link to get in touch.</p> : !available ? <p>The form is not accepting messages right now. Please use the email link.</p> : <p className="muted">All fields are required except phone.</p>}
     </div>
-    {accepted ? <button className="button button-secondary" type="button" onClick={() => { setResult(null); setChallenge(null); startedAt.current = Date.now(); submissionId.current = ""; }}>Write another enquiry</button> : <form ref={formRef} onSubmit={submit} noValidate aria-label="Contact Selvarajalingam" aria-busy={pending} onChange={(event) => { const target = event.target; if ((target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement) && contactFields.includes(target.name as ContactField)) submissionId.current = ""; }}>
+    {accepted ? <button className="button button-secondary" type="button" onClick={() => { setResult(null); setChallenge(null); setSubject(""); startedAt.current = Date.now(); submissionId.current = ""; }}>Write another enquiry</button> : <form ref={formRef} onSubmit={submit} noValidate aria-label="Contact Selvarajalingam" aria-busy={pending} onChange={(event) => { const target = event.target; if ((target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) && contactFields.includes(target.name as ContactField)) submissionId.current = ""; }}>
       <fieldset disabled={pending}><legend className="sr-only">Your enquiry</legend>
         <div className="contact-fields"><div className="contact-field"><label htmlFor="name">Name</label><input id="name" name="name" autoComplete="name" maxLength={100} required {...accessibility("name")} />{fieldError("name")}</div>
         <div className="contact-field"><label htmlFor="email">Email</label><input id="email" name="email" type="email" autoComplete="email" maxLength={254} required {...accessibility("email")} />{fieldError("email")}</div>
         <div className="contact-field"><label htmlFor="phone">Phone <span className="muted">(optional)</span></label><input id="phone" name="phone" type="tel" autoComplete="tel" maxLength={30} {...accessibility("phone")} />{fieldError("phone")}</div>
-        <div className="contact-field"><label htmlFor="subject">Subject</label><select id="subject" name="subject" defaultValue="" required {...accessibility("subject")}><option value="" disabled>Choose a subject</option>{contactSubjects.map((subject) => <option key={subject}>{subject}</option>)}</select>{fieldError("subject")}</div>
+        <div className="contact-field"><label htmlFor="subject">Subject</label><GlideSelect id="subject" name="subject" ariaLabel="Subject" options={contactSubjects} value={subject} placeholder="Choose a subject" required disabled={pending} onChange={(value) => { setSubject(value); submissionId.current = ""; }} {...accessibility("subject")} />{fieldError("subject")}</div>
         <div className="contact-field contact-message"><label htmlFor="message">Message</label><textarea id="message" name="message" minLength={20} maxLength={5000} rows={7} required {...accessibility("message")} />{fieldError("message")}<span className="muted" id="message-help">20–5,000 characters. Please avoid sharing sensitive information.</span></div></div>
         <div className="contact-honeypot" aria-hidden="true"><label htmlFor="website">Leave this field empty<input id="website" name="website" autoComplete="off" tabIndex={-1} /></label></div>
         {challenge && <SecurityCheck key={challenge.attempt} siteKey={challenge.siteKey} onToken={updateToken} />}

@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import curation from "../../src/content/github/repositories.json" with { type: "json" };
@@ -48,7 +49,7 @@ for (const theme of ["dark", "light"]) {
   test(`repository snapshots are accessible and responsive in ${theme}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.route("**/api/github", (route) => route.fulfill({ json: { repositories: curation.repositories.map((repository) => ({ name: repository.name, url: repository.url, metadata: { stars: 0, forks: 0, language: null, checkedAt: "2026-11-19T00:00:00Z" } })) } }));
-    await page.goto("/"); await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+    await page.goto("/"); await chooseSelect(page, "Color theme", theme);
     await page.locator(".github-repositories").scrollIntoViewIfNeeded();
     await expect(page.locator(".repository-metadata")).toHaveCount(4);
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);

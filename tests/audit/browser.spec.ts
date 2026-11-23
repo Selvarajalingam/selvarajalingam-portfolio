@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import projects from "../../src/content/projects/index.json" with { type: "json" };
@@ -6,12 +7,12 @@ import ventures from "../../src/content/ventures/index.json" with { type: "json"
 const paths = ["/", "/about", "/work", "/lab", "/ventures", "/services", "/experience", "/connect", "/privacy", ...projects.map((entry) => `/work/${entry.slug}`), ...ventures.map((entry) => `/ventures/${entry.slug}`)];
 for (const theme of ["dark", "light"]) {
   test(`all actual routes pass accessibility and reflow in ${theme}`, async ({ page }) => {
-    await page.goto("/"); await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+    await page.goto("/"); await chooseSelect(page, "Color theme", theme);
     for (const path of paths) {
       await page.setViewportSize({ width: 1440, height: 1000 });
       expect([200, 304], path).toContain((await page.goto(path))?.status());
       await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
-      const controlContrasts = await page.locator('input:not([type="hidden"]), select, textarea, .utility-button, .button-secondary, .skill-status-filters button').evaluateAll((elements) => {
+      const controlContrasts = await page.locator('input:not([type="hidden"]), .glide-select__trigger, textarea, .utility-button, .button-secondary, .skill-status-filters button').evaluateAll((elements) => {
         function luminance(color: string) {
           const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map((value) => { const channel = value / 255; return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4; });
           return rgb[0]! * .2126 + rgb[1]! * .7152 + rgb[2]! * .0722;
@@ -33,7 +34,7 @@ for (const theme of ["dark", "light"]) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${path}: 320px reflow`).toBe(true);
       await page.addStyleTag({ content: "* { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; } p { margin-bottom: 2em !important; }" });
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${path}: text spacing at 320px`).toBe(true);
-      for (const control of await page.locator(".site-header a, .site-header select, .site-header button").all()) {
+      for (const control of await page.locator(".site-header a, .site-header button").all()) {
         if (!await control.isVisible()) continue;
         const box = await control.boundingBox();
         expect(box && box.x >= 0 && box.x + box.width <= 320, `${path}: header control remains in viewport`).toBe(true);

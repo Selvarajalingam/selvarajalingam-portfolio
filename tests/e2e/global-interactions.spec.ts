@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -5,10 +6,10 @@ test("theme persists and follows the system only when requested", async ({ page 
   await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await page.getByLabel("Color theme", { exact: true }).selectOption("light");
+  await chooseSelect(page, "Color theme", "light");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await page.getByLabel("Color theme", { exact: true }).selectOption("system");
+  await chooseSelect(page, "Color theme", "system");
   await page.emulateMedia({ colorScheme: "dark" });
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.emulateMedia({ colorScheme: "light" });
@@ -18,7 +19,7 @@ test("theme persists and follows the system only when requested", async ({ page 
 test("storage denial leaves theme controls and content usable", async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(window, "localStorage", { get() { throw new DOMException("Blocked", "SecurityError"); } }));
   await page.goto("/");
-  await page.getByLabel("Color theme", { exact: true }).selectOption("light");
+  await chooseSelect(page, "Color theme", "light");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
@@ -27,7 +28,7 @@ test("theme choice synchronizes across tabs", async ({ page, context }) => {
   await page.goto("/");
   const second = await context.newPage();
   await second.goto("/");
-  await second.getByLabel("Color theme", { exact: true }).selectOption("light");
+  await chooseSelect(second, "Color theme", "light");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await second.close();
 });

@@ -9,6 +9,7 @@ import { HomeSection } from "@/components/sections/home-section";
 import { githubCuration } from "@/lib/content/github";
 import { GitHubRepositories } from "@/components/resources/github-repositories";
 import { CloudResources } from "@/components/resources/cloud-resources";
+import { ProjectCover } from "@/components/projects/project-cover";
 
 export const metadata = routeMetadata("/");
 
@@ -29,7 +30,7 @@ export default function Home() {
     <HomeSection id="selected-work" label="Featured work" heading="Ideas, put into practice." className="featured-section">
       <div className="section-lead"><p className="muted">A selection of independently developed software projects.</p><Link className="text-link" href="/work">Explore all work</Link></div>
       <div className="featured-grid">{home.featured.map((reference) => { const project = content.projects.find((record) => record.slug === reference.slug)!; return <article className="featured-project" key={project.slug}>
-        <p className="project-context">{reference.context}</p><h3><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><p>{project.summary}</p>
+        <ProjectCover project={project} /><div className="featured-project-copy"><p className="project-context">{reference.context}</p><h3><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><p className="muted">{project.summary}</p><Link className="text-link project-story-link" href={`/work/${project.slug}`}>Explore project<span className="sr-only">: {project.title}</span></Link></div>
       </article>; })}</div>
       <GitHubRepositories repositories={githubCuration.repositories.map(({ name, url }) => ({ name, url }))} profileUrl={githubCuration.profileUrl} />
     </HomeSection>

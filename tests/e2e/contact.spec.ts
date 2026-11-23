@@ -1,3 +1,4 @@
+import { chooseSelect } from "../helpers/select";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -10,7 +11,7 @@ async function enableForm(page: import("@playwright/test").Page) {
 async function fill(page: import("@playwright/test").Page) {
   await page.getByLabel("Name", { exact: true }).fill("Test Visitor");
   await page.getByLabel("Email", { exact: true }).fill("visitor@example.org");
-  await page.getByLabel("Subject", { exact: true }).selectOption("Training");
+  await chooseSelect(page, "Subject", "Training");
   await page.getByLabel("Message", { exact: true }).fill("A test-only enquiry about technical training.");
 }
 
@@ -137,7 +138,7 @@ test("a failed security script can be retried without losing the enquiry (mocked
 for (const theme of ["dark", "light"]) {
   test(`services, contact and privacy are accessible and responsive in ${theme}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/services"); await page.getByLabel("Color theme", { exact: true }).selectOption(theme);
+    await page.goto("/services"); await chooseSelect(page, "Color theme", theme);
     const viewport = page.viewportSize()!;
     for (const route of ["services", "connect", "privacy"]) {
       await page.goto(`/${route}`);

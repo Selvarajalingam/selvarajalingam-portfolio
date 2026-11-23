@@ -22,6 +22,10 @@ Bold modern sans-serif display, readable modern sans-serif body, occasional edit
 ## Layout
 Spacious editorial grid, asymmetric featured work selectively, consistent spacing, readable max-width, deliberate mobile composition.
 
+Reference refinement (22 November 2026): use generous framed, rounded covers for featured projects and compact rows for the secondary archive. Until authentic screenshots are supplied, covers are decorative typographic compositions using the actual project title and category; never simulate product interfaces. Keep factual summaries and explicit case-study links visible. Use the system sans stack for body and an Arial/Helvetica display treatment with fluid sizing. Reserve tight tracking for display text.
+
+Work filters share one validated query-string state across viewport sizes, reloads and browser history. Keep visible labels. All dropdowns use the shared React Bits Glide Select adaptation (`src/components/ui/glide-select.tsx`): theme, Work, Lab and contact subject. Menus use theme tokens, 44px minimum options, measured gliding highlights, scrollable viewport-aware positioning, visible focus, keyboard/typeahead/touch support and reduced-motion overrides. Keep actual form values and validation intact. Desktop navigation is an inset pill within the existing header; avoid a second floating dock over content. The footer has a static contact invitation and large wordmark.
+
 ## Components
 SiteHeader, MobileNavigation, ThemeToggle, IntroSequence, Hero, SectionHeading, buttons/links, ProjectCard, ProjectFilter, TechnologyTag, CaseStudyHeader/Section, ArchitectureDiagram, Gallery/Lightbox, Timeline, MetricCard, SkillCategory, TechnologyCard, VentureCard, ServiceAccordion, LabCard, StatusBadge, ProgressSnapshot/Timeline, SocialLink, ResumePreview, ContactForm, Footer, ScrollProgress, BackToTop.
 
